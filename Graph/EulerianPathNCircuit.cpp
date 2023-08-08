@@ -16,7 +16,7 @@ bool isConnected() {
     vector<bool> visited(n+1, false);
     dfs(1, visited);
     for (int i = 1; i <= n; ++i) {
-        if (!visited[i])
+        if (!visited[i] && adj[i].size() > 0)
             return false;
     }
     return true;
@@ -42,25 +42,26 @@ bool hasEulerianCircuit() {
 bool hasEulerianPath() {
     if (!isConnected()) {
         return false;
-
     }
     int oddDegreeCount = countOddDegree();
     return oddDegreeCount == 0 || oddDegreeCount == 2;
 }
 int main() {
-  ios::sync_with_stdio(false);
-  cin.tie(0);
-  int tt;
-  tt = 1;
-  while(tt--) {
-    cin >> n >> m;
-    for(int i = 0; i < m; i++) {
-        int u, v;
-        cin >> u >> v;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int tt;
+    tt = 1;
+    while(tt--) {
+        cin >> n >> m;
+        for(int i = 0; i < m; i++) {
+            int u, v;
+            cin >> u >> v;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        if(hasEulerianPath())
+            cout << "Has Euler Path\n";
+        if(hasEulerianCircuit())
+            cout << "Has Euler Circuit" << "\n";
     }
-    if(hasEulerianPath())cout << "Has Euler Path\n";
-    if(hasEulerianCircuit())cout << "Has Euler Circuit" << "\n";
-}
 }
