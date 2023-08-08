@@ -65,3 +65,8 @@ int main() {
             cout << "Has Euler Circuit" << "\n";
     }
 }
+// 4 4
+// 1 2
+// 2 3
+// 3 1
+// 2 4
