@@ -11,16 +11,16 @@ int primMST(int m) {
     pq.push(make_tuple(0, 0, 0));
 
     while (!pq.empty()) {
-        auto [weight, u, prev] = pq.top();
+        auto [weight, u, v] = pq.top();
         pq.pop();
 
-        if (visited[u])
+        if (visited[v])
             continue;
-        visited[u] = true;
+        visited[v] = true;
         totalWeight += weight;
-        for (auto[from, v, w] : G[u]) {
-            if (!visited[v])
-                pq.push(make_tuple(w, v, u));
+        for (auto[uu, vv, w] : G[v]) {
+            if (!visited[vv])
+                pq.push(make_tuple(w, uu, vv));
         }
     }
     return totalWeight;
