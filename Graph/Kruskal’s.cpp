@@ -1,7 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define ll long long
 const int N = 2e5+5;
-vector<tuple<int, int, int>> G;
+vector<tuple<ll, int, int>> G;
 int parent[N+5], Size[N+5];
 
 void make_set(int v) {
@@ -30,14 +31,15 @@ int main() {
     int n, m;
     cin >> n >> m;
     for(int i = 0; i < m; i++) {
-        int wt, u, v;
-        cin >> wt >> u >> v;
+        int u, v;
+        ll wt;
+        cin >> u >> v >> wt;
         G.emplace_back(wt, u, v);
     }
     sort(G.begin(), G.end());
-    for(int i = 0; i <= n; i++)make_set(i);
+    for(int i = 1; i <= n; i++)make_set(i);
     vector<pair<int, int>> MST;
-    int ans = 0;
+    ll ans = 0;
     for(auto[wt, u, v] : G) {
         if(find_set(u) != find_set(v)) {
             union_sets(u, v);
@@ -45,22 +47,11 @@ int main() {
             MST.emplace_back(u, v);
         }
     }
-    cout << ans << "\n";
+    set<int> st;
+    for(int i = 1; i <= n; i++)st.insert(find_set(i));
+        
+    if(st.size() > 1)cout << "IMPOSSIBLE\n";
+    else cout << ans << "\n";
   }
 }
-// 9 14
-// 1 7	6
-// 2 8	2
-// 2 6	5
-// 4 0	1
-// 4 2	5
-// 6 8	6
-// 7 2	3
-// 7 7	8
-// 8 0	7
-// 8 1	2
-// 9 3	4
-// 10 5 4
-// 11 1 7
-// 14 3 5
-//ans = 37
+// https://cses.fi/problemset/task/1675/
